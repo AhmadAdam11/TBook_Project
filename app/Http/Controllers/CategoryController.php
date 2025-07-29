@@ -7,9 +7,14 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::all(); 
+        $search = $request->search;
+
+        $categories = Category::when($search, function ($query, $search) {
+            return $query->where('nama', 'like', '%' . $search . '%');
+        })->get();
+
         return view('category.index', compact('categories'));
     }
 

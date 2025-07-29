@@ -13,7 +13,7 @@
 
         .sidebar {
             min-height: 100vh;
-            background-color: #3A7CA5; /* warna biru sidebar */
+            background-color: #3A7CA5;
             color: white;
             padding: 30px 20px;
         }
@@ -64,10 +64,11 @@
                             <i class="bi bi-layout-text-window-reverse me-2"></i> Kategori
                         </a>
                     </li>
-                        <li class="nav-item">
-                        <form action="{{ route('logout') }}" method="POST">
+                    <li class="nav-item">
+                        <!-- Tombol Logout dengan konfirmasi -->
+                        <form id="logoutForm" action="{{ route('logout') }}" method="POST">
                             @csrf
-                            <button type="submit" class="btn nav-link text-start w-100">
+                            <button type="button" id="logoutButton" class="btn nav-link text-start w-100">
                                 <i class="bi bi-box-arrow-right me-2"></i> Keluar
                             </button>
                         </form>
@@ -82,6 +83,16 @@
         </div>
     </div>
 
+    <!-- Script Bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Script Konfirmasi Logout -->
+    <script>
+        document.getElementById('logoutButton').addEventListener('click', function () {
+            if (confirm("Apakah kamu yakin ingin keluar?")) {
+                document.getElementById('logoutForm').submit();
+            }
+        });
+    </script>
 </body>
 </html>

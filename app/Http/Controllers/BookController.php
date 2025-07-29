@@ -8,21 +8,27 @@ use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $data = Book::with('category')->get();    
-        $categories = Category::all();   
-        return view('books.index', compact('data', 'categories'));
+        $search = $request->query('search');
+
+        $data = Book::with('category')
+            ->when($search, function ($query, $search) {
+                return $query->where('name', 'like', '%' . $search . '%');
+            })
+            ->get();
+
+        $categories = Category::all();
+
+        return view('books.index', compact('data', 'categories', 'search'));
     }
 
-    // Halaman form create
     public function createForm()
     {
         $categories = Category::all();
         return view('books.create', compact('categories'));
     }
 
-    // Simpan buku baru
     public function create(Request $request)
     {
         $request->validate([
@@ -48,7 +54,6 @@ class BookController extends Controller
         return response()->json(['data' => $book->load('category')]);
     }
 
-    // Halaman form edit
     public function editForm($id)
     {
         $book = Book::findOrFail($id);
@@ -56,7 +61,6 @@ class BookController extends Controller
         return view('books.edit', compact('book', 'categories'));
     }
 
-    // Update buku
     public function update(Request $request, $id)
     {
         $book = Book::findOrFail($id);
@@ -85,13 +89,11 @@ class BookController extends Controller
         return response()->json(['data' => $book->load('category')]);
     }
 
-    // Hapus buku
     public function delete($id)
     {
         $book = Book::findOrFail($id);
         $book->delete();
 
         return redirect('/books')->with('success', 'Buku berhasil dihapus');
-
     }
 }
