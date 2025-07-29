@@ -9,7 +9,7 @@ use App\Http\Controllers\BookController;
 
 Route::get('/login', [AdminAuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AdminAuthController::class, 'login'])->name('admin.login');
-Route::post('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
+Route::post('/logout', [AdminAuthController::class, 'logout'])->name('logout');
 
 
 //dashboard

@@ -2,15 +2,43 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Dashboard</title>
+    <title>TBook - Admin Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         body {
             min-height: 100vh;
+            margin: 0;
         }
+
         .sidebar {
             min-height: 100vh;
-            background-color: #f8f9fa;
+            background-color: #3A7CA5; /* warna biru sidebar */
+            color: white;
+            padding: 30px 20px;
+        }
+
+        .sidebar .nav-link {
+            color: white;
+            font-weight: 500;
+            padding: 10px 5px;
+        }
+
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+        }
+
+        .sidebar .logo {
+            width: 150px;
+            margin-bottom: 10px;
+        }
+
+        .sidebar h4 {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 30px;
         }
     </style>
 </head>
@@ -18,17 +46,31 @@
     <div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->
-            <div class="col-md-3 col-lg-2 sidebar p-3">
-                <h4>Menu</h4>
-                <ul class="nav flex-column">
+            <div class="col-md-3 col-lg-2 sidebar d-flex flex-column align-items-center">
+                <img src="{{ asset('assets/logo_Tbook.png') }}" alt="Logo" class="logo">
+                <ul class="nav flex-column w-100">
                     <li class="nav-item">
-                        <a href="{{ route('dashboard') }}" class="nav-link">Dashboard</a>
+                        <a href="{{ route('dashboard') }}" class="nav-link">
+                            <i class="bi bi-bar-chart-line me-2"></i> dashboard
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('category.index') }}" class="nav-link">Category</a>
+                        <a href="{{ route('books.index') }}" class="nav-link">
+                            <i class="bi bi-journal-bookmark me-2"></i> Buku
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('books.index') }}" class="nav-link">Books</a>
+                        <a href="{{ route('category.index') }}" class="nav-link">
+                            <i class="bi bi-layout-text-window-reverse me-2"></i> Kategori
+                        </a>
+                    </li>
+                        <li class="nav-item">
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn nav-link text-start w-100">
+                                <i class="bi bi-box-arrow-right me-2"></i> Keluar
+                            </button>
+                        </form>
                     </li>
                 </ul>
             </div>
