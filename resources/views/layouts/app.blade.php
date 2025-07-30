@@ -65,6 +65,11 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('users.index') }}" class="nav-link">
+                            <i class="bi bi-person-add me-2"></i> User Account
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <!-- Tombol Logout dengan konfirmasi -->
                         <form id="logoutForm" action="{{ route('logout') }}" method="POST">
                             @csrf

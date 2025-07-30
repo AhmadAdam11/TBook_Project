@@ -2,10 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\AdminAuthController;
-use App\Http\Controllers\BookController;
+use App\Http\Controllers\User\RegistUserController;
 
 Route::get('/login', [AdminAuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AdminAuthController::class, 'login'])->name('admin.login');
@@ -36,3 +37,14 @@ Route::post('/books/create', [BookController::class, 'create']);
 Route::get('/books/edit/{id}', [BookController::class, 'editForm']);
 Route::post('/books/update/{id}', [BookController::class, 'update']);
 Route::delete('/books/delete/{id}', [BookController::class, 'delete']);
+
+
+//user
+
+
+
+
+Route::get('/users', [RegistUserController::class, 'index'])->name('users.index');
+Route::post('/users', [RegistUserController::class, 'store'])->name('users.store');
+Route::put('/users/{id}', [RegistUserController::class, 'update'])->name('users.update');
+Route::delete('/users/{id}', [RegistUserController::class, 'destroy'])->name('users.destroy');
